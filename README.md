@@ -1,3 +1,8 @@
 # checkpoint_graphQL
 
-For start the server : npm start
+For start the server :
+
+```
+ cd backend
+ npm start
+```
