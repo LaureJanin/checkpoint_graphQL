@@ -38,11 +38,12 @@ export class CountryResolver {
 
   @Mutation(() => Country)
   async createCountry(
-    @Arg("data", () => CountryCreateInput) data: CountryCreateInput
+    @Arg("code") code: string,
+    @Arg("name") name: string,
+    @Arg("emoji") emoji: string,
+    @Arg("continentCode") continentCode: string
   ): Promise<Country> {
-    const newCountry = new Country();
-
-    Object.assign(newCountry, data);
+    const newCountry = Country.create({ code, name, emoji, continentCode });
 
     const errors = await validate(newCountry);
 
@@ -53,4 +54,22 @@ export class CountryResolver {
       throw new Error(`Validation failed!`);
     }
   }
+
+  // @Mutation(() => Country)
+  // async createCountry(
+  //   @Arg("data", () => CountryCreateInput) data: CountryCreateInput
+  // ): Promise<Country> {
+  //   const newCountry = new Country();
+
+  //   Object.assign(newCountry, data);
+
+  //   const errors = await validate(newCountry);
+
+  //   if (errors.length === 0) {
+  //     await newCountry.save();
+  //     return newCountry;
+  //   } else {
+  //     throw new Error(`Validation failed!`);
+  //   }
+  // }
 }
